@@ -25,7 +25,7 @@ const userSchema = Schema(
       default: '/avatar.png'
     },
     role: {
-      type: Array,
+      type: ['String'],
       default: ['Subscriber'],
       enum: ['Subscriber', 'Instructor', 'Admin']
     },
