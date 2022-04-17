@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 const morgan = require('morgan');
 require('dotenv').config();
+import { readdirSync } from 'fs';
 
 // create express app
 const app = express();
@@ -11,10 +12,10 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// routes
-app.get('/', (req, res) => {
-  res.send('You have hit app endpoint');
-});
+// autoload all routes
+readdirSync('./routes').map((route) =>
+  app.use('/api', require(`./routes/${route}`))
+);
 
 // port
 const port = process.env.PORT || 8000;
