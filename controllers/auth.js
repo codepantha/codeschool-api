@@ -42,7 +42,7 @@ export const login = async (req, res) => {
         expiresIn: '7d'
       });
 
-      // return user and token to client excluding the password
+      // set token and return user to client excluding the password
       delete user._doc.password;
       res.cookie('token', token, {
         httpOnly: true
@@ -57,7 +57,7 @@ export const login = async (req, res) => {
   }
 };
 
-const validateInput = (input, register = false) => {
+const validateInput = (input = {}, register = false) => {
   if (register) if (!input.name) return 'name is a required field';
   if (!input.email) return 'email is a required field';
   if (!input.password || input.password.length < 6)
