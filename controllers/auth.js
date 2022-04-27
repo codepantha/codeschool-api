@@ -57,6 +57,15 @@ export const login = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {
+  try {
+    res.clearCookie('token');
+    return res.json('logout successful.');
+  } catch (err) {
+    return res.status(400).json('Ooops! Something bad happened. Try again.')
+  }
+}
+
 const validateInput = (input = {}, register = false) => {
   if (register) if (!input.name) return 'name is a required field';
   if (!input.email) return 'email is a required field';
